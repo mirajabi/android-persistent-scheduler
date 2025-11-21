@@ -60,88 +60,163 @@ dependencies {
 
 ## 🛠 Usage
 
-### 1. Download Manager Example
+### 1. Combining All Modules (Recommended)
 
-```kotlin
-import com.example.scheduler.lib.core.ServiceManager
-import com.example.scheduler.lib.download.DownloadModule
-import com.example.scheduler.lib.download.DownloadConfig
+You can use multiple modules together in a single service. This example shows Scheduler + HTTP Server + Download Manager:
 
-// Configure download
-val downloadConfig = DownloadConfig(
-    url = "https://example.com/app.apk",
-    fileName = "app.apk",
-    downloadId = "app_download",
-    usePublicDownloads = true,  // Save to Downloads folder
-    showNotificationActions = true  // Show pause/resume/stop buttons
-)
-
-// Add download module
-ServiceManager.addModule(DownloadModule(downloadConfig))
-
-// Start the service
-ServiceManager.start(context)
-```
-
-### 2. Scheduler Example
-
-Initialize and start the service in your `MainActivity` or `Application` class.
-
+**Kotlin:**
 ```kotlin
 import com.example.scheduler.lib.core.ServiceManager
 import com.example.scheduler.lib.core.SchedulerConfig
 import com.example.scheduler.lib.scheduler.SchedulerModule
 import com.example.scheduler.lib.http.HttpServerModule
+import com.example.scheduler.lib.download.DownloadModule
+import com.example.scheduler.lib.download.DownloadConfig
 
-// Configure the Scheduler
-val config = SchedulerConfig(
+// Configure Scheduler
+val schedulerConfig = SchedulerConfig(
     notificationTitle = "My App Service",
-    notificationContent = "Background tasks running...",
+    notificationContent = "All services running...",
     notificationIcon = R.drawable.ic_notification,
     enableCountdown = true,
     countdownFormat = "Next task in: %s"
 )
 
-// Add modules and start
-ServiceManager.addModule(
-    SchedulerModule(config)
-).addModule(
-    HttpServerModule(port = 8030) { request ->
-        // Handle HTTP request
-        "<html><body><h1>Hello from Android!</h1></body></html>"
-    }
+// Configure Download
+val downloadConfig = DownloadConfig(
+    url = "https://example.com/app.apk",
+    fileName = "app.apk",
+    downloadId = "app_download",
+    usePublicDownloads = true,
+    showNotificationActions = true
 )
 
-// Start the service
+// Add all modules and start
+ServiceManager
+    .addModule(SchedulerModule(schedulerConfig))
+    .addModule(HttpServerModule(port = 8030) { request ->
+        "<html><body><h1>Hello from Android!</h1></body></html>"
+    })
+    .addModule(DownloadModule(downloadConfig))
+
+// Start the unified service
 ServiceManager.start(context)
 ```
 
-### 3. Java Example
-
-The library is fully interoperable with Java.
-
+**Java:**
 ```java
 import com.example.scheduler.lib.core.ServiceManager;
 import com.example.scheduler.lib.core.SchedulerConfig;
 import com.example.scheduler.lib.scheduler.SchedulerModule;
 import com.example.scheduler.lib.http.HttpServerModule;
+import com.example.scheduler.lib.download.DownloadModule;
+import com.example.scheduler.lib.download.DownloadConfig;
 
-// Configure
-SchedulerConfig config = new SchedulerConfig(
+// Configure Scheduler
+SchedulerConfig schedulerConfig = new SchedulerConfig(
     "My App Service",
-    "Background tasks running...",
+    "All services running...",
     R.drawable.ic_notification,
     true,
     "Next task in: %s"
 );
 
-// Add modules
-ServiceManager.INSTANCE.addModule(new SchedulerModule(config));
+// Configure Download
+DownloadConfig downloadConfig = new DownloadConfig(
+    "https://example.com/app.apk",
+    "",  // ignored when usePublicDownloads = true
+    "app.apk",
+    "app_download",
+    true,  // usePublicDownloads
+    true   // showNotificationActions
+);
+
+// Add all modules
+ServiceManager.INSTANCE.addModule(new SchedulerModule(schedulerConfig));
 ServiceManager.INSTANCE.addModule(new HttpServerModule(8030, (request) -> {
     return "<html><body><h1>Hello from Java!</h1></body></html>";
 }));
+ServiceManager.INSTANCE.addModule(new DownloadModule(downloadConfig));
 
 // Start
+ServiceManager.INSTANCE.start(context);
+```
+
+### 2. Download Manager Only
+
+If you only need the download functionality:
+
+**Kotlin:**
+```kotlin
+import com.example.scheduler.lib.core.ServiceManager
+import com.example.scheduler.lib.download.DownloadModule
+import com.example.scheduler.lib.download.DownloadConfig
+
+val downloadConfig = DownloadConfig(
+    url = "https://example.com/app.apk",
+    fileName = "app.apk",
+    downloadId = "app_download",
+    usePublicDownloads = true,
+    showNotificationActions = true
+)
+
+ServiceManager.addModule(DownloadModule(downloadConfig))
+ServiceManager.start(context)
+```
+
+**Java:**
+```java
+DownloadConfig downloadConfig = new DownloadConfig(
+    "https://example.com/app.apk",
+    "",
+    "app.apk",
+    "app_download",
+    true,
+    true
+);
+
+ServiceManager.INSTANCE.addModule(new DownloadModule(downloadConfig));
+ServiceManager.INSTANCE.start(context);
+```
+
+### 3. Scheduler + HTTP Server
+
+For apps that need periodic tasks and remote control:
+
+**Kotlin:**
+```kotlin
+val config = SchedulerConfig(
+    notificationTitle = "My App Service",
+    notificationContent = "Waiting for next run...",
+    notificationIcon = R.drawable.ic_notification,
+    enableCountdown = true,
+    countdownFormat = "Next run in: %s"
+)
+
+ServiceManager
+    .addModule(SchedulerModule(config))
+    .addModule(HttpServerModule(port = 8030) { request ->
+        "<html><body><h1>Server is running!</h1></body></html>"
+    })
+
+ServiceManager.start(context)
+```
+
+**Java:**
+```java
+SchedulerConfig config = new SchedulerConfig(
+    "My App Service",
+    "Waiting for next run...",
+    R.drawable.ic_notification,
+    true,
+    "Next run in: %s"
+);
+
+ServiceManager.INSTANCE.addModule(new SchedulerModule(config));
+ServiceManager.INSTANCE.addModule(new HttpServerModule(8030, (request) -> {
+    return "<html><body><h1>Server is running!</h1></body></html>";
+}));
+
 ServiceManager.INSTANCE.start(context);
 ```
 
