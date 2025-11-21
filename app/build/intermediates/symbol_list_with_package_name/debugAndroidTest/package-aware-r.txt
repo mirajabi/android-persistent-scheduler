@@ -1,0 +1,3 @@
+com.example.scheduler.test
+style WhiteBackgroundDialogTheme
+style WhiteBackgroundTheme

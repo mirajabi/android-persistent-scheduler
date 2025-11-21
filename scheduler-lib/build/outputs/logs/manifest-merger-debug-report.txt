@@ -1,0 +1,96 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:1:1-41:12
+INJECTED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:1:1-41:12
+	package
+		INJECTED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.WAKE_LOCK
+ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:3:5-68
+	android:name
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:3:22-65
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:4:5-81
+	android:name
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:4:22-78
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:5:5-77
+	android:name
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:5:22-74
+uses-permission#android.permission.FOREGROUND_SERVICE_DATA_SYNC
+ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:6:5-87
+	android:name
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:6:22-84
+uses-permission#android.permission.SCHEDULE_EXACT_ALARM
+ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:7:5-79
+	android:name
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:7:22-76
+uses-permission#android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:8:5-95
+	android:name
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:8:22-92
+uses-permission#android.permission.INTERNET
+ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:9:5-67
+	android:name
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:9:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:10:5-79
+	android:name
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:10:22-76
+application
+ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:12:5-39:19
+receiver#com.example.scheduler.lib.receiver.AlarmReceiver
+ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:13:9-16:40
+	android:enabled
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:15:13-35
+	android:exported
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:16:13-37
+	android:name
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:14:13-51
+receiver#com.example.scheduler.lib.receiver.BootReceiver
+ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:18:9-26:20
+	android:enabled
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:20:13-35
+	android:exported
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:21:13-36
+	android:name
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:19:13-50
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.QUICKBOOT_POWERON
+ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:22:13-25:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:23:17-79
+	android:name
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:23:25-76
+action#android.intent.action.QUICKBOOT_POWERON
+ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:24:17-82
+	android:name
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:24:25-79
+service#com.example.scheduler.lib.service.SchedulerService
+ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:28:9-32:56
+	android:enabled
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:30:13-35
+	android:exported
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:31:13-37
+	android:foregroundServiceType
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:32:13-53
+	android:name
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:29:13-53
+service#com.example.scheduler.lib.core.CoreService
+ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:34:9-38:56
+	android:enabled
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:36:13-35
+	android:exported
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:37:13-37
+	android:foregroundServiceType
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:38:13-53
+	android:name
+		ADDED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml:35:13-45
+uses-sdk
+INJECTED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml
+INJECTED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/mm/.gemini/antigravity/scratch/android_scheduler/scheduler-lib/src/main/AndroidManifest.xml
