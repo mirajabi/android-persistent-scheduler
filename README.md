@@ -8,19 +8,31 @@
 
 ## 🚀 Features
 
+### Core Features
 *   **Persistent Foreground Service**: Keeps the app alive with a high-priority notification.
-*   **Unified Architecture**: Manage multiple background modules (Scheduler, HTTP, etc.) with a single service.
+*   **Unified Architecture**: Manage multiple background modules (Scheduler, HTTP, Download) with a single service.
 *   **Built-in Scheduler**: Precise countdown timer and task execution.
 *   **Embedded HTTP Server**: Lightweight HTTP server to communicate with your app via local network.
 *   **Battery Optimization**: Helper utilities to request "Ignore Battery Optimizations".
 *   **Watchdog Mechanism**: Redundant periodic work to restart the service if killed.
 *   **Android 14+ Ready**: Compatible with the latest foreground service types (`dataSync`).
 
+### 🆕 Advanced Download Manager (v1.0.1)
+*   **Pause/Resume/Stop Controls**: Full download lifecycle management with notification buttons
+*   **Persistent State**: Resume downloads from exact byte position after app restart
+*   **APK Validation**: Automatic validation using `PackageManager` - ensures downloaded APKs are valid and installable
+*   **Smart Retry**: Auto-detects corrupted chunks and re-downloads them
+*   **Chunk Validation**: Verifies file integrity before assembly
+*   **Public Downloads Folder**: Saves to `/storage/emulated/0/Download/` by default
+*   **Real-time Progress**: Progress bar updates with download speed and remaining bytes
+*   **Zero Data Loss**: File flushing ensures no corruption during pause/resume
+*   **Smart Controls**: Buttons auto-hide when complete, prevents duplicate downloads
+
 ## 📋 Requirements
 
 *   **minSdk**: 21 (Android 5.0 Lollipop)
 *   **targetSdk**: 34 (Android 14)
-*   **Language**: Kotlin / Java (Java 8+)
+*   **Language**: Kotlin / Java (Java 11+)
 
 ## 📦 Installation
 
@@ -42,13 +54,36 @@ Step 2. Add the dependency.
 **Gradle (Kotlin DSL) - `build.gradle.kts`**
 ```kotlin
 dependencies {
-    implementation("com.github.mirajabi:android-persistent-scheduler:1.0.0")
+    implementation("com.github.mirajabi:android-persistent-scheduler:v1.0.1")
 }
 ```
 
 ## 🛠 Usage
 
-### 1. Kotlin Example
+### 1. Download Manager Example
+
+```kotlin
+import com.example.scheduler.lib.core.ServiceManager
+import com.example.scheduler.lib.download.DownloadModule
+import com.example.scheduler.lib.download.DownloadConfig
+
+// Configure download
+val downloadConfig = DownloadConfig(
+    url = "https://example.com/app.apk",
+    fileName = "app.apk",
+    downloadId = "app_download",
+    usePublicDownloads = true,  // Save to Downloads folder
+    showNotificationActions = true  // Show pause/resume/stop buttons
+)
+
+// Add download module
+ServiceManager.addModule(DownloadModule(downloadConfig))
+
+// Start the service
+ServiceManager.start(context)
+```
+
+### 2. Scheduler Example
 
 Initialize and start the service in your `MainActivity` or `Application` class.
 
@@ -81,7 +116,7 @@ ServiceManager.addModule(
 ServiceManager.start(context)
 ```
 
-### 2. Java Example
+### 3. Java Example
 
 The library is fully interoperable with Java.
 
@@ -110,15 +145,19 @@ ServiceManager.INSTANCE.addModule(new HttpServerModule(8030, (request) -> {
 ServiceManager.INSTANCE.start(context);
 ```
 
-### 3. Permissions
+### 4. Permissions
 
 The library automatically adds necessary permissions to your merged manifest. However, for **Android 13+**, you must request the Notification permission at runtime.
+
+For **Download Manager**, you also need storage permissions:
 
 ```xml
 <!-- Added automatically by the library -->
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 <uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
 ```
 
 ## 📱 Suitable Projects
@@ -128,8 +167,21 @@ This library is ideal for:
 *   **Real-time Trackers**: GPS or data loggers that must not be killed by the system.
 *   **Kiosk Apps**: Always-on applications for dedicated devices.
 *   **Scheduled Automation**: Apps that need to execute tasks at precise intervals without relying on unreliable `WorkManager` constraints.
+*   **Download Managers**: Apps that need robust, resumable downloads with validation.
 
 ## 📄 Changelog
+
+### v1.0.1 (Latest)
+*   🆕 **Advanced Download Manager Module**
+    *   Pause/Resume/Stop controls with notification buttons
+    *   APK validation using PackageManager
+    *   Smart retry for corrupted chunks
+    *   Persistent chunk state with SharedPreferences
+    *   Real-time progress updates and speed calculation
+    *   Zero data loss with file flushing
+    *   Public Downloads folder support
+*   🐛 Fixed JitPack build configuration
+*   ⬆️ Updated to Java 11
 
 ### v1.0.0
 *   Initial release.
