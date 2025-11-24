@@ -54,7 +54,7 @@ Step 2. Add the dependency.
 **Gradle (Kotlin DSL) - `build.gradle.kts`**
 ```kotlin
 dependencies {
-    implementation("com.github.mirajabi:android-persistent-scheduler:v1.0.1")
+    implementation("com.github.mirajabi:android-persistent-scheduler:v1.0.2")
 }
 ```
 
@@ -246,7 +246,13 @@ This library is ideal for:
 
 ## 📄 Changelog
 
-### v1.0.1 (Latest)
+### v1.0.2 (Latest)
+*   🐛 **Fixed JitPack Java Compatibility**
+    *   Changed JitPack build from Java 17 to Java 11
+    *   Resolved "major version 61" error for projects using Java 11
+    *   Ensured bytecode compatibility across different Java versions
+
+### v1.0.1
 *   🆕 **Advanced Download Manager Module**
     *   Pause/Resume/Stop controls with notification buttons
     *   APK validation using PackageManager
